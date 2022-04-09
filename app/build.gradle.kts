@@ -23,6 +23,7 @@ dependencies {
     // This dependency is used by the application.
     implementation("com.google.guava:guava:30.1.1-jre")
     implementation(files("C:/Users/Wael/Downloads/opencv/build/java/opencv-455.jar"))
+    implementation("org.mongodb:mongodb-driver-sync:4.1.2")
 }
 
 application {

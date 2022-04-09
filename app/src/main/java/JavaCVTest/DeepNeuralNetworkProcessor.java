@@ -18,13 +18,16 @@ import java.util.List;
  **/
 
 public class DeepNeuralNetworkProcessor {
-    // private final static Logger LOGGER = LoggerFactory.getLogger(DeepNeuralNetworkProcessor.class);
+    // private final static Logger LOGGER =
+    // LoggerFactory.getLogger(DeepNeuralNetworkProcessor.class);
     private Net net;
     private final String proto = "data/dnnmodel/MobileNetSSD_deploy.prototxt";
     private final String model = "data/dnnmodel/MobileNetSSD_deploy.caffemodel";
 
-    // private final String model = "data/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb";
-    // private final String proto = "data/ssd_mobilenet_v2_coco_2018_03_29/ssd_mobilenet_v2_coco_2018_03_29.pbtxt";
+    // private final String model =
+    // "data/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb";
+    // private final String proto =
+    // "data/ssd_mobilenet_v2_coco_2018_03_29/ssd_mobilenet_v2_coco_2018_03_29.pbtxt";
 
     private final String[] classNames = { "background",
             "aeroplane", "bicycle", "bird", "boat",
@@ -32,7 +35,6 @@ public class DeepNeuralNetworkProcessor {
             "cow", "diningtable", "dog", "horse",
             "motorbike", "person", "pottedplant",
             "sheep", "sofa", "train", "tvmonitor" };
-
 
     public DeepNeuralNetworkProcessor() {
         // this.net = Dnn.readNetFromCaffe(proto, model);
@@ -45,12 +47,13 @@ public class DeepNeuralNetworkProcessor {
         int inWidth = 320;
         int inHeight = 240;
         double inScaleFactor = 0.007843;
-        double thresholdDnn = 0.2;
         double meanVal = 127.5;
 
         int personObjectCount = 0;
         Mat blob = null;
         Mat detections = null;
+
+        double thresholdDnn = 0.3;
 
         try {
             if (isGrayFrame)
@@ -60,6 +63,7 @@ public class DeepNeuralNetworkProcessor {
                     new Size(inWidth, inHeight),
                     new Scalar(meanVal, meanVal, meanVal),
                     false, false);
+
             net.setInput(blob);
             detections = net.forward();
             detections = detections.reshape(1, (int) detections.total() / 7);
