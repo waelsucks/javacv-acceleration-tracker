@@ -6,7 +6,10 @@ import java.util.List;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
 import org.opencv.highgui.HighGui;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
 import org.opencv.videoio.VideoCapture;
 
 public class App {
@@ -41,6 +44,8 @@ public class App {
                 } else {
                     System.out.println();
                 }
+
+                Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255, 0, 0), 2);
 
                 HighGui.imshow("Boop", frame);
                 HighGui.waitKey(1);
