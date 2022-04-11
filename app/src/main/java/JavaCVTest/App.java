@@ -1,57 +1,45 @@
 package JavaCVTest;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.changestream.FullDocument;
 
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
-import org.opencv.videoio.VideoCapture;
+import org.bson.Document;
 
 public class App {
 
     public static void main(String[] args) {
 
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        MongoClient mongoClient = MongoClients.create(
+                "mongodb+srv://whaam:B-oop123@project2022.yskak.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 
-        DeepNeuralNetworkProcessor processor = new DeepNeuralNetworkProcessor();
-        List<DnnObject> detectObject = new ArrayList<>();
+        System.out.println("Connected to MongoDB");
 
-        VideoCapture capture = new VideoCapture(0);
+        MongoDatabase database = mongoClient.getDatabase("configuration");
+        MongoCollection<Document> collection = database.getCollection("setup");
 
-        Mat frame = new Mat();
-        capture.read(frame);
+        var watchCursor = collection.watch()
+                .fullDocument(FullDocument.UPDATE_LOOKUP);
 
-        while (capture.read(frame)) {
+        while (true) {
 
-            detectObject = processor.getObjectsInFrame(frame, false);
+            var doc = watchCursor.first();
 
-            try {
+            if ((boolean) doc.getFullDocument().get("status")) {
 
-                DnnObject person = detectObject.stream().filter(o -> o.getObjectName().equals("person"))
-                        .findFirst()
-                        .get();
+                GameController gameController = new GameController(mongoClient, (String) doc.getFullDocument().get("username"));
+                gameController.start();
+                System.out.println(doc.getFullDocument().get("username") + " has joined the game!");
 
-                Person.getInstance("Player").setPersonRect(new Rect(person.getLeftBottom(), person.getRightTop()));
-                Person.getInstance("Player").show(frame);
+                collection.findOneAndUpdate(new Document("name", "setup"),
+                        new Document("$set", new Document("status", false)));
 
-                if (Person.getInstance("Player").getIsMoving()) {
-                    System.out.println("Player is moving");
-                } else {
-                    System.out.println();
-                }
+            } else {
 
-                Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255, 0, 0), 2);
+                // gameController.stopGame();
 
-                HighGui.imshow("Boop", frame);
-                HighGui.waitKey(1);
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
 
         }

@@ -74,6 +74,8 @@ public class Person {
                     instance.isMoving = true;
                 }
 
+                System.out.println("Average movement: " + averageMovement);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
