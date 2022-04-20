@@ -1,9 +1,5 @@
 package JavaCVTest;
 
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.highgui.HighGui;
-
 public class Lerper {
 
     // If we change the target at the same time, the current acceleration will be

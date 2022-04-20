@@ -85,15 +85,15 @@ public class App {
 
             try {
 
-                DnnObject person = detectObject.stream().filter(o ->
-                o.getObjectName().equals("person"))
-                .findAny()
-                .get();
+                DnnObject person = detectObject.stream().filter(o -> o.getObjectName().equals("person"))
+                        .findFirst()
+                        .get();
 
                 persontest.addRect(new Rect(person.getLeftBottom(), person.getRightTop()));
                 persontest.updateMovement();
                 persontest.showGauge();
 
+                Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
                 HighGui.imshow("WOW", frame);
 
             } catch (Exception e) {

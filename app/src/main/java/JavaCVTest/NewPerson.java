@@ -1,6 +1,5 @@
 package JavaCVTest;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.opencv.core.Mat;
