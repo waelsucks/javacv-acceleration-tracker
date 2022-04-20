@@ -94,7 +94,6 @@ public class App {
                 persontest.showGauge();
 
                 Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
-                HighGui.imshow("WOW", frame);
 
             } catch (Exception e) {
                 e.printStackTrace();
