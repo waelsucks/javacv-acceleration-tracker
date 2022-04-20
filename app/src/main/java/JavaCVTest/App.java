@@ -97,50 +97,20 @@ public class App {
                 Person.getInstance("Player").setPersonRect(new Rect(person.getLeftBottom(), person.getRightTop()));
                 Person.getInstance("Player").show(frame);
 
-                // Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255, 0, 0), 1);
-
-                // if (Person.getInstance("Player").isMoving() &&
-                // !music.getMp().getRunningStatus()) {
-                // mistakes++;
-                // } else if (!Person.getInstance("Player").isMoving() &&
-                // music.getMp().getRunningStatus()) {
-                // mistakes++;
-                // } else {
-                // mistakes = 0;
-                // }
-
-                // if (!(Person.getInstance("Player").isMoving() &&
-                // music.getMp().getRunningStatus())) {
-                // mistakes++;
-                // } else {
-                // if (Person.getInstance("Player").isMoving() &&
-                // !music.getMp().getRunningStatus()) {
-                // mistakes = 0;
-                // }
-                // }
-
-                // if (mistakes >= 20) {
-                // System.out.println("Player loosing...");
-                // } else {
-                // System.out.println();
-                // }
-
                 lerpTarget = Person.getInstance("Player").getAverageMovement();
 
-                // Mat roi = new Mat(new Size(1000, 800), 0);
                 Mat roi = Imgcodecs.imread("data/NUMBERLINE.png");
                 Imgproc.resize(roi, roi, new Size(300, 800));
 
                 lerpTarget = lerpTarget * roi.height() / 2;
                 lerpPosition = lerper.Lerp(lerpPosition, lerpTarget);
-                
-                // Imgproc.circle(frame, new Point(lerpPosition, frame.height() / 2), 25, new Scalar(255));
-                // Imgproc.circle(frame, new Point(lerpTarget, frame.height() / 2), 5, new Scalar(0, 0, 255, 1));
 
                 Imgproc.circle(roi, new Point(roi.width() / 2, lerpPosition), 25, new Scalar(255, 0, 0), 2);
 
-                Imgproc.circle(roi, new Point(roi.width() / 4, lerpTarget), 5, new Scalar(0, 0, 255, 1), Imgproc.FILLED);
-                Imgproc.line(roi, new Point(roi.width() / 4, lerpTarget), new Point(roi.width() / 2, lerpTarget), new Scalar(0, 0, 255, 1));
+                Imgproc.circle(roi, new Point(roi.width() / 4, lerpTarget), 5, new Scalar(0, 0, 255, 1),
+                        Imgproc.FILLED);
+                Imgproc.line(roi, new Point(roi.width() / 4, lerpTarget), new Point(roi.width() / 2, lerpTarget),
+                        new Scalar(0, 0, 255, 1));
 
                 HighGui.imshow("Player", roi);
                 HighGui.waitKey(1);

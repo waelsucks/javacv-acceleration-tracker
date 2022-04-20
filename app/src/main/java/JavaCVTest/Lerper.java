@@ -68,53 +68,6 @@ public class Lerper {
 
     }
 
-    // public double Lerp(double position, double target) {
-    // // get the amount to move
-    // double v = LerpVelocity(position, target);
-    // // don't allow increases in velocity beyond the specifed acceleration (ease
-    // in)
-    // if (v > 0 && previousVelocity >= 0 && v - previousVelocity > acceleration) {
-    // v = previousVelocity + acceleration;
-    // } else if (v == acceleration) {
-    // v = previousVelocity - acceleration;
-
-    // // we might actually end up moving away from the target
-    // // here in which case we adjust the target so we don't get
-    // // clamped to it later
-    // if (v == 0 && previousVelocity == acceleration) {
-    // v = previousVelocity + acceleration;
-    // // we might actually end up moving away from the target
-    // // here in which case we adjust the target so we don't get
-    // // clamped to it later
-    // if (v > 0 - minVelocity)
-    // v = minVelocity;
-    // // else
-    // // target = float.MinValue;
-    // }
-    // }
-
-    // // If this is less than the minimum velocity then
-    // // clamp at minimum velocity
-
-    // if (Math.abs(v) < minVelocity) {
-    // v = minVelocity;
-    // } else {
-    // v = 0 - minVelocity;
-    // }
-
-    // // Remember the previous velocity
-    // previousVelocity = v;
-
-    // // Adjust the position based on the new velocity
-    // position += v;
-    // // Now account for potential overshoot and clamp to target if necessary
-    // if ((v == target)) {
-    // position = target;
-    // }
-
-    // return position;
-    // }
-
     public double getAmount() {
         return this.amount;
     }
