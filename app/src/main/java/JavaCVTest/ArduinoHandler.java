@@ -22,7 +22,7 @@ public class ArduinoHandler {
             System.out.println("new game started");
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
-            new ArduinoHandler();
+            new Handler();
 
     }
 
