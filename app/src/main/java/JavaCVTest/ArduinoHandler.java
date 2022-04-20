@@ -46,7 +46,7 @@ public class ArduinoHandler {
                         System.out.println("YOU WON!");
                         dos.write(ledOn.getBytes());
                         dos.flush();
-                        currentThread().interrupt();
+                        // currentThread().interrupt();
                     }
                 }
             } catch (IOException e) {

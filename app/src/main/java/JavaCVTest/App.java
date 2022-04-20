@@ -127,7 +127,9 @@ public class App {
 
                 lerpTarget = Person.getInstance("Player").getAverageMovement();
 
-                Mat roi = new Mat(new Size(1000, 800), 1);
+                // Mat roi = new Mat(new Size(1000, 800), 0);
+                Mat roi = Imgcodecs.imread("data/NUMBERLINE.png");
+                Imgproc.resize(roi, roi, new Size(300, 800));
 
                 lerpTarget = lerpTarget * roi.height() / 2;
                 lerpPosition = lerper.Lerp(lerpPosition, lerpTarget);
