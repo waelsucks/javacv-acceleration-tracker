@@ -27,10 +27,8 @@ public class GameController extends Thread {
 
     public GameController(MongoClient mongoClient, String string) {
 
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-
         processor = new DeepNeuralNetworkProcessor();
-        camera = new VideoCapture(1);
+        camera = new VideoCapture(0);
         this.mongoClient = mongoClient;
         this.username = string;
 
@@ -44,6 +42,8 @@ public class GameController extends Thread {
 
         game = new Game();
         game.startGame();
+
+        Music music = new Music();
 
         while (isGameRunning) {
 
@@ -61,8 +61,11 @@ public class GameController extends Thread {
                 Person.getInstance("Player").show(frame);
 
                 // ------------------------------------------
+                // GAME LOGIC
 
-                if (Person.getInstance("Player").isMoving()) {
+                if (Person.getInstance("Player").isMoving() && !music.getMp().getRunningStatus() ) {
+                    game.addMistake();
+                } else if (!Person.getInstance("Player").isMoving() && music.getMp().getRunningStatus()) {
                     game.addMistake();
                 } else {
                     game.setMistakesCount(0);
@@ -70,6 +73,9 @@ public class GameController extends Thread {
 
                 if (game.getMistakesCount() >= 10) {
                     stopGame();
+                    music.getMp().stopClip();
+                    music.getMp().setRunning(false);
+                    music.getMp().setPlaying(false);
                 }
 
                 // ------------------------------------------
@@ -94,7 +100,8 @@ public class GameController extends Thread {
         game.endGame();
         System.out.println(game.calculateScore());
 
-        mongoClient.getDatabase("stats").getCollection("games").insertOne(new Document("score", game.calculateScore()).append("player", username));
+        mongoClient.getDatabase("stats").getCollection("games")
+                .insertOne(new Document("score", game.calculateScore()).append("player", username));
 
     }
 

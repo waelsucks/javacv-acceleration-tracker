@@ -55,26 +55,54 @@ public class Person {
                     roi = new Mat(frame, personRect);
                 }
 
-                averageMovement = 0;
-                int index = 0;
+                double[] beep = interpolate(personRect.width, lastRects.getLast().width, 2);
 
-                for (Rect rect : lastRects) {
+                System.out.println(beep[0] + " " + beep[1]);
 
-                    averageMovement += rect.width;
+                // -------------------------------
 
-                    index++;
-                }
+                // int x = 0;
+                // int y = 0;
 
-                averageMovement /= index;
-                averageMovement /= lastRects.getLast().width;
+                // if (lastRects.size() >= 30) {
 
-                if (averageMovement >= 0.9 && averageMovement <= 1.1) {
-                    isMoving = false;
-                } else {
-                    instance.isMoving = true;
-                }
+                //     // x = (int) lastRects.stream().mapToInt(r -> r.x).average().getAsDouble();
+                //     // y = (int) lastRects.stream().mapToInt(r -> r.y).average().getAsDouble();
 
-                System.out.println("Average movement: " + averageMovement);
+                //     // x = lastRects.getFirst().x;
+                //     // y = lastRects.getFirst().y;
+
+                //     double linearInterpolation = y
+                //             + (lastRects.getLast().x - x) * ((y - lastRects.getLast().y) / (x - lastRects.getLast().x));
+
+                //     System.out.println(linearInterpolation);
+
+                // }
+
+                // -------------------------------
+
+                // averageMovement = 0;
+                // int index = 0;
+
+                // for (Rect rect : lastRects) {
+
+                // averageMovement += rect.width;
+
+                // index++;
+                // }
+
+                // averageMovement /= index;
+                // averageMovement /= lastRects.getLast().width;
+
+                // if (averageMovement >= 0.60 && averageMovement <= 1.40) {
+                // isMoving = false;
+                // // System.out.println();
+                // } else {
+                // instance.isMoving = true;
+                // // System.out.println("Moving");
+                // }
+
+                // System.out.println("Average movement: " + averageMovement);
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -87,7 +115,7 @@ public class Person {
 
         this.personRect = personRect;
 
-        if (lastRects.size() > 10) {
+        if (lastRects.size() > 30) {
             lastRects.removeLast();
         }
 
@@ -122,6 +150,26 @@ public class Person {
 
     public boolean getIsMoving() {
         return isMoving;
+    }
+
+    /***
+     * Interpolating method
+     * 
+     * @param start start of the interval
+     * @param end   end of the interval
+     * @param count count of output interpolated numbers
+     * @return array of interpolated number with specified count
+     */
+    public static double[] interpolate(double start, double end, int count) {
+        if (count < 2) {
+            throw new IllegalArgumentException("interpolate: illegal count!");
+        }
+        double[] array = new double[count + 1];
+
+        for (int i = 0; i <= count; ++i) {
+            array[i] = start + i * (end - start) / count;
+        }
+        return array;
     }
 
 }
