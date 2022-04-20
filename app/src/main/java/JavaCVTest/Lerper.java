@@ -13,10 +13,10 @@ public class Lerper {
     // and there
     // we will add mistakes.
 
-    private double amount = 0.05;
+    private double amount = 0.1;
     private double minVelocity = 0.001;
     private double previousVelocity;
-    private double acceleration = 3;
+    private double acceleration = 10;
     private boolean resting = true;
 
     private double LerpVelocity(double position, double target) {

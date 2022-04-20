@@ -62,7 +62,7 @@ public class Person {
 
         this.personRect = personRect;
 
-        if (lastRects.size() > 30) {
+        if (lastRects.size() > 15) {
             lastRects.removeLast();
         }
 
