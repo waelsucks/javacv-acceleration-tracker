@@ -4,10 +4,6 @@ import java.util.LinkedList;
 
 import org.opencv.core.Mat;
 import org.opencv.core.Rect;
-import org.opencv.core.Scalar;
-import org.opencv.highgui.HighGui;
-import org.opencv.imgcodecs.Imgcodecs;
-import org.opencv.imgproc.Imgproc;
 
 public class Person {
 
@@ -43,66 +39,26 @@ public class Person {
 
         if (personRect != null) {
 
-            Mat roi;
-
             try {
 
-                if (personRect.width >= frame.width() || personRect.height >= frame.height()) {
-                    roi = new Mat(frame, new Rect(personRect.x, personRect.y,
-                            personRect.width - (Math.abs(frame.width() - personRect.width)),
-                            personRect.height - (Math.abs(frame.height() - personRect.height))));
-                } else {
-                    roi = new Mat(frame, personRect);
+                averageMovement = 0;
+                int index = 0;
+
+                for (Rect rect : lastRects) {
+
+                    averageMovement += rect.width;
+
+                    index++;
                 }
 
-                double[] beep = interpolate(personRect.width, lastRects.getLast().width, 2);
+                averageMovement /= index;
+                averageMovement /= lastRects.getLast().width;
 
-                System.out.println(beep[0] + " " + beep[1]);
-
-                // -------------------------------
-
-                // int x = 0;
-                // int y = 0;
-
-                // if (lastRects.size() >= 30) {
-
-                //     // x = (int) lastRects.stream().mapToInt(r -> r.x).average().getAsDouble();
-                //     // y = (int) lastRects.stream().mapToInt(r -> r.y).average().getAsDouble();
-
-                //     // x = lastRects.getFirst().x;
-                //     // y = lastRects.getFirst().y;
-
-                //     double linearInterpolation = y
-                //             + (lastRects.getLast().x - x) * ((y - lastRects.getLast().y) / (x - lastRects.getLast().x));
-
-                //     System.out.println(linearInterpolation);
-
-                // }
-
-                // -------------------------------
-
-                // averageMovement = 0;
-                // int index = 0;
-
-                // for (Rect rect : lastRects) {
-
-                // averageMovement += rect.width;
-
-                // index++;
-                // }
-
-                // averageMovement /= index;
-                // averageMovement /= lastRects.getLast().width;
-
-                // if (averageMovement >= 0.60 && averageMovement <= 1.40) {
-                // isMoving = false;
-                // // System.out.println();
-                // } else {
-                // instance.isMoving = true;
-                // // System.out.println("Moving");
-                // }
-
-                // System.out.println("Average movement: " + averageMovement);
+                if (averageMovement >= 0.60 && averageMovement <= 1.40) {
+                    instance.isMoving = false;
+                } else {
+                    instance.isMoving = true;
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();

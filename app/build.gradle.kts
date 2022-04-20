@@ -29,6 +29,7 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass.set("JavaCVTest.App")
+    // mainClass.set("JavaCVTest.TestLerp")
 }
 
 tasks.named<Test>("test") {
