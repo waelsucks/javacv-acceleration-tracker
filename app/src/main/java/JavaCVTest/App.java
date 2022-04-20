@@ -137,8 +137,10 @@ public class App {
                 // Imgproc.circle(frame, new Point(lerpPosition, frame.height() / 2), 25, new Scalar(255));
                 // Imgproc.circle(frame, new Point(lerpTarget, frame.height() / 2), 5, new Scalar(0, 0, 255, 1));
 
-                Imgproc.circle(roi, new Point(roi.width() / 2, lerpPosition), 25, new Scalar(255));
-                Imgproc.circle(roi, new Point(roi.width() / 2, lerpTarget), 5, new Scalar(0, 0, 255, 1));
+                Imgproc.circle(roi, new Point(roi.width() / 2, lerpPosition), 25, new Scalar(255, 0, 0), 2);
+
+                Imgproc.circle(roi, new Point(roi.width() / 4, lerpTarget), 5, new Scalar(0, 0, 255, 1), Imgproc.FILLED);
+                Imgproc.line(roi, new Point(roi.width() / 4, lerpTarget), new Point(roi.width() / 2, lerpTarget), new Scalar(0, 0, 255, 1));
 
                 HighGui.imshow("Player", roi);
                 HighGui.waitKey(1);
