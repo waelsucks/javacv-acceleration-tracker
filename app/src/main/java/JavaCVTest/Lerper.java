@@ -1,9 +1,5 @@
 package JavaCVTest;
 
-import org.opencv.core.Mat;
-import org.opencv.core.Size;
-import org.opencv.highgui.HighGui;
-
 public class Lerper {
 
     // If we change the target at the same time, the current acceleration will be
@@ -16,7 +12,7 @@ public class Lerper {
     private double amount = 0.1;
     private double minVelocity = 0.001;
     private double previousVelocity;
-    private double acceleration = 7;
+    private double acceleration = 10;
     private boolean resting = true;
 
     private double LerpVelocity(double position, double target) {

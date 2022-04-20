@@ -77,12 +77,7 @@ public class App {
 
         // Music music = new Music();
 
-        int mistakes = 0;
-
-        double lerpPosition = 0;
-        double lerpTarget = 0;
-
-        Lerper lerper = new Lerper();
+        NewPerson persontest = new NewPerson("Wael");
 
         while (camera.read(frame)) {
 
@@ -94,35 +89,12 @@ public class App {
                         .findFirst()
                         .get();
 
-                Person.getInstance("Player").setPersonRect(new Rect(person.getLeftBottom(), person.getRightTop()));
-                Person.getInstance("Player").show(frame);
+                persontest.addRect(new Rect(person.getLeftBottom(), person.getRightTop()));
+                persontest.updateMovement();
+                persontest.showGauge();
 
-                lerpTarget = Person.getInstance("Player").getAverageMovement();
-
-                Mat roi = Imgcodecs.imread("data/NUMBERLINE.png");
-                Imgproc.resize(roi, roi, new Size(300, 800));
-
-                lerpTarget = lerpTarget * roi.height() / 2;
-                lerpPosition = lerper.Lerp(lerpPosition, lerpTarget);
-
-                Imgproc.circle(roi, new Point(roi.width() / 2, lerpPosition), 25, new Scalar(255, 0, 0), 2);
-
-                Imgproc.circle(roi, new Point(roi.width() / 4, lerpTarget), 5, new Scalar(0, 0, 255, 1),
-                        Imgproc.FILLED);
-                Imgproc.line(roi, new Point(roi.width() / 4, lerpTarget), new Point(roi.width() / 2, lerpTarget),
-                        new Scalar(0, 0, 255, 1));
-
-
-                double avgMovement = Person.getInstance("Player").getAverageMovement();
-
-                double lerpPercent = Math.abs(1 - (lerpPosition * 2 / roi.height())) * 100;
-
-                Imgproc.putText(roi, String.format("Avg: %.2f", avgMovement), new Point(roi.width() / 6, roi.height() / 4), 1, 1, new Scalar(0, 0, 255));
-                Imgproc.putText(roi, String.format("LERP: %.0f%%", lerpPercent), new Point(roi.width() / 6, roi.height() / 3), 1, 1, new Scalar(255, 0, 0));
-
-
-                HighGui.imshow("Player", roi);
-                HighGui.waitKey(1);
+                Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
+                HighGui.imshow("WOW", frame);
 
             } catch (Exception e) {
                 e.printStackTrace();
