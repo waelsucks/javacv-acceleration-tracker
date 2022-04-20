@@ -112,6 +112,15 @@ public class App {
                 Imgproc.line(roi, new Point(roi.width() / 4, lerpTarget), new Point(roi.width() / 2, lerpTarget),
                         new Scalar(0, 0, 255, 1));
 
+
+                double avgMovement = Person.getInstance("Player").getAverageMovement();
+
+                double lerpPercent = Math.abs(1 - (lerpPosition * 2 / roi.height())) * 100;
+
+                Imgproc.putText(roi, String.format("Avg: %.2f", avgMovement), new Point(roi.width() / 6, roi.height() / 4), 1, 1, new Scalar(0, 0, 255));
+                Imgproc.putText(roi, String.format("LERP: %.0f%%", lerpPercent), new Point(roi.width() / 6, roi.height() / 3), 1, 1, new Scalar(255, 0, 0));
+
+
                 HighGui.imshow("Player", roi);
                 HighGui.waitKey(1);
 

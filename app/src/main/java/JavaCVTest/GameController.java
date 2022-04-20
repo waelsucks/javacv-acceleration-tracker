@@ -63,14 +63,6 @@ public class GameController extends Thread {
                 // ------------------------------------------
                 // GAME LOGIC
 
-                if (Person.getInstance("Player").isMoving() && !music.getMp().getRunningStatus() ) {
-                    game.addMistake();
-                } else if (!Person.getInstance("Player").isMoving() && music.getMp().getRunningStatus()) {
-                    game.addMistake();
-                } else {
-                    game.setMistakesCount(0);
-                }
-
                 if (game.getMistakesCount() >= 10) {
                     stopGame();
                     music.getMp().stopClip();
