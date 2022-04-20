@@ -23,8 +23,7 @@ public class NewPerson {
     private double lerpPosition;
     private double lerpPercent;
 
-    Mat oldGauge = Imgcodecs.imread("data/NUMBERLINE.png");
-    Mat gauge = new Mat();
+    Mat gauge = Imgcodecs.imread("data/NUMBERLINE.png");
 
     public NewPerson(String name) {
 
@@ -34,9 +33,6 @@ public class NewPerson {
         lerper = new Lerper();
         lerpPosition = 0;
         lerpTarget = 0;
-
-        Imgproc.resize(oldGauge, gauge, new Size(300, 800));
-        lerpPosition = gauge.height() / 2;
 
     }
 
@@ -52,7 +48,8 @@ public class NewPerson {
 
     public void showGauge() {
 
-        Imgproc.resize(oldGauge, gauge, new Size(300, 800));
+        Mat gauge = Imgcodecs.imread("data/NUMBERLINE.png");
+        Imgproc.resize(gauge, gauge, new Size(300, 800));
 
         Imgproc.circle(gauge, new Point(gauge.width() / 2, lerpPosition), 25, new Scalar(255, 0, 0), 2);
 
