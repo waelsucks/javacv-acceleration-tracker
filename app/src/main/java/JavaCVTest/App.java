@@ -63,11 +63,11 @@ public class App {
 
         // TESTING AVERAGE MOVEMENT
 
-        File file = new File("Demo.txt"); // creates a new file instance
+        File file = new File("dll/dllPath.txt"); // creates a new file instance
         FileReader fr = new FileReader(file); // reads the file
         BufferedReader br = new BufferedReader(fr); // creates a buffering character input stream
         
-        System.loadLibrary(br.readLine());
+        System.load(br.readLine());
 
         DeepNeuralNetworkProcessor processor = new DeepNeuralNetworkProcessor();
         VideoCapture camera = new VideoCapture(0);
