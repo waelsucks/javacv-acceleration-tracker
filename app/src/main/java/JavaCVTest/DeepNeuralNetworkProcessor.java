@@ -90,7 +90,7 @@ public class DeepNeuralNetworkProcessor {
         int inWidth = 320;
         int inHeight = 240;
         double inScaleFactor = 0.007843;
-        double thresholdDnn = 0.2;
+        double thresholdDnn = 0.4;
         double meanVal = 127.5;
 
         Mat blob = null;

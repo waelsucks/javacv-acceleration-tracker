@@ -81,6 +81,9 @@ public class App {
 
         while (camera.read(frame)) {
 
+            // Imgproc.resize(frame, frame, new Size(300, 300));
+            // Imgproc.resize(frame, frame, new Size(800, 800));
+
             List<DnnObject> detectObject = processor.getObjectsInFrame(frame, false);
 
             try {
@@ -93,7 +96,9 @@ public class App {
                 persontest.updateMovement();
                 persontest.showGauge();
 
-                Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
+                // Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
+                // HighGui.imshow("VIEW", frame);
+                // HighGui.waitKey(1);
 
             } catch (Exception e) {
                 e.printStackTrace();
