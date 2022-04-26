@@ -96,11 +96,11 @@ public class App {
                 player.updateMovement();
                 player.showGauge();
 
-                // Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
-                // Imgproc.putText(frame, String.format("%.0f", player.getLerpPercent()), person.getRightTop(),
-                //         50, 1, new Scalar(255));
+                Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
+                Imgproc.putText(frame, String.format("Movement: %.0f%%", player.getLerpPercent()), new Point(50, 50),
+                        50, 1, new Scalar(255));
                 HighGui.imshow("VIEW", frame);
-                // HighGui.waitKey(1);
+                HighGui.waitKey(1);
 
             } catch (Exception e) {
                 e.printStackTrace();

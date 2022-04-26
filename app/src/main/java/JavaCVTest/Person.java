@@ -66,7 +66,7 @@ public class Person {
                 1, 1, new Scalar(255, 0, 0));
 
         HighGui.imshow(name, gauge);
-        HighGui.waitKey(1);
+        // HighGui.waitKey(1);
 
     }
 
