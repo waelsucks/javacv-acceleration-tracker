@@ -43,7 +43,7 @@ public class GameController extends Thread {
         game = new Game();
         game.startGame();
 
-        Music music = new Music();
+        // Music music = new Music();
 
         while (isGameRunning) {
 
@@ -57,18 +57,18 @@ public class GameController extends Thread {
                         .findFirst()
                         .get();
 
-                Person.getInstance("Player").setPersonRect(new Rect(person.getLeftBottom(), person.getRightTop()));
-                Person.getInstance("Player").show(frame);
+                // Person.getInstance("Player").setPersonRect(new Rect(person.getLeftBottom(), person.getRightTop()));
+                // Person.getInstance("Player").show(frame);
 
                 // ------------------------------------------
                 // GAME LOGIC
 
-                if (game.getMistakesCount() >= 10) {
-                    stopGame();
-                    music.getMp().stopClip();
-                    music.getMp().setRunning(false);
-                    music.getMp().setPlaying(false);
-                }
+                // if (game.getMistakesCount() >= 10) {
+                //     stopGame();
+                //     music.getMp().stopClip();
+                //     music.getMp().setRunning(false);
+                //     music.getMp().setPlaying(false);
+                // }
 
                 // ------------------------------------------
 

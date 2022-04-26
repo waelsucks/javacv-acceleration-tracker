@@ -77,7 +77,7 @@ public class App {
 
         // Music music = new Music();
 
-        NewPerson persontest = new NewPerson("Wael");
+        Person player = new Person("Player");
 
         while (camera.read(frame)) {
 
@@ -92,12 +92,14 @@ public class App {
                         .findFirst()
                         .get();
 
-                persontest.addRect(new Rect(person.getLeftBottom(), person.getRightTop()));
-                persontest.updateMovement();
-                persontest.showGauge();
+                player.addRect(new Rect(person.getLeftBottom(), person.getRightTop()));
+                player.updateMovement();
+                player.showGauge();
 
                 // Imgproc.rectangle(frame, person.getLeftBottom(), person.getRightTop(), new Scalar(255));
-                // HighGui.imshow("VIEW", frame);
+                // Imgproc.putText(frame, String.format("%.0f", player.getLerpPercent()), person.getRightTop(),
+                //         50, 1, new Scalar(255));
+                HighGui.imshow("VIEW", frame);
                 // HighGui.waitKey(1);
 
             } catch (Exception e) {
